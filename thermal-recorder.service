@@ -1,0 +1,25 @@
+[Unit]
+Description=Thermal Master P1 continuous recorder
+# No After=network.target on purpose: the field unit has no network, and
+# record_p1_segmented.py already retries the USB connection on its own if
+# the camera hasn't enumerated yet when this starts.
+
+[Service]
+Type=simple
+User=ale
+WorkingDirectory=/home/ale/p3-ir-camera/p3-ir-camera
+ExecStart=/home/ale/p3-ir-camera/p3-ir-camera/venv/bin/python record_p1_segmented.py \
+    --outdir /home/ale/p3-ir-camera/p3-ir-camera/recordings_field_test_20260909 \
+    --segment-seconds 3600 \
+    --duration 0 \
+    --fps 10 \
+    --raw-every-n 10 \
+    --rotate-degrees 180 
+Restart=always
+RestartSec=10
+# Give systemd time to deliver SIGTERM and let the current segment close
+# cleanly before it escalates to SIGKILL.
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
