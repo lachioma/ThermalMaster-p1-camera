@@ -112,22 +112,30 @@ You'll probably see something like:
 NAME                UUID                                  TYPE      DEVICE
 Wired connection 1  xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  ethernet  eth0
 
-The important part is the NAME — probably Wired connection 1.
+The important part is the NAME — probably "Wired connection 1" or "netplan-eth0".
 
 2. Configure the static IP
 
-If the connection is indeed called Wired connection 1, run:
+If the connection is indeed called "Wired connection 1", run:
 
 sudo nmcli connection modify "Wired connection 1" ipv4.method manual ipv4.addresses 192.168.50.2/24
 
 Because this is a direct Pi ↔ laptop connection, we do not need to specify a gateway or DNS server. This is intentional.
-
 Then reload the connection:
 
 sudo nmcli connection down "Wired connection 1"
 sudo nmcli connection up "Wired connection 1"
 
 Your Ethernet connection will briefly disappear and come back.
+
+
+Otherwise, if the connection is called "netplan-eth0", run:
+
+sudo nmcli connection modify "netplan-eth0" ipv4.method manual ipv4.addresses 192.168.50.2/24
+
+sudo nmcli connection down "netplan-eth0"
+sudo nmcli connection up "netplan-eth0"
+
 
 3. Verify
 
