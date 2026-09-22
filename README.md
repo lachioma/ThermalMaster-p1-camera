@@ -234,7 +234,7 @@ This configuration should also leave your seewiesen Wi-Fi connection alone, so t
 ```
 sudo apt update
 sudo apt install python3-full python3-venv python3-opencv python3-numpy libusb-1.0-0-dev
-git clone [https://github.com/jvdillon/p3-ir-camera](https://github.com/lachioma/ThermalMaster-p1-camera)
+git clone https://github.com/lachioma/ThermalMaster-p1-camera
 cd ThermalMaster-p1-camera
 pip install -e .
 ```
