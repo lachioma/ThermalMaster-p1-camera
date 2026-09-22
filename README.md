@@ -135,7 +135,8 @@ If you have issues, try to sudo reboot the Raspi.
 
 ### Make that IP permanent on Raspberry Pi
 
-Run these commands on the Raspberry Pi.
+Run these commands on the Raspberry Pi.\
+Here is for "Wired connection 1". Further below is for "netplan-eth0".
 
 1. Set the permanent static IP
 
@@ -151,6 +152,21 @@ Then activate the updated connection:
     sudo nmcli connection down "Wired connection 1"
     sudo nmcli connection up "Wired connection 1"
 
+
+
+In case of "netplan-eth0":
+
+```
+sudo nmcli connection modify "netplan-eth0" ipv4.method manual ipv4.addresses 192.168.50.2/24
+```
+```
+sudo nmcli connection modify "netplan-eth0" ipv4.never-default yes
+sudo nmcli connection modify "netplan-eth0" ipv6.method disabled
+```
+```
+sudo nmcli connection down "netplan-eth0"
+sudo nmcli connection up "netplan-eth0"
+```  
 
 2. Verify
 
