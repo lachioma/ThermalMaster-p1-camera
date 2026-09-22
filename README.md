@@ -234,14 +234,11 @@ This configuration should also leave your seewiesen Wi-Fi connection alone, so t
 ```
 sudo apt update
 sudo apt install python3-full python3-venv python3-opencv python3-numpy libusb-1.0-0-dev
-git clone https://github.com/lachioma/ThermalMaster-p1-camera
-cd ThermalMaster-p1-camera
-pip install -e .
 ```
 
 Now create an environment and activate it. If needed, use cd to move to the directory where you want the environment to be created.
 ```
-cd ~/p3-ir-camera
+cd home/ale
 ```
 ```
 python3 -m venv venv
@@ -249,6 +246,13 @@ source venv/bin/activate
 ```
 ```
 pip install numpy pyusb opencv-python matplotlib
+```
+
+### Install repository
+```
+git clone https://github.com/lachioma/ThermalMaster-p1-camera
+cd ThermalMaster-p1-camera
+pip install -e .
 ```
 
 USB permissions for the camera (needed for the camera to work):
@@ -260,10 +264,28 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="3474", ATTR{idProduct}=="45c2", MODE="0666"
 SUBSYSTEM=="usb", ATTR{idVendor}=="3474", ATTR{idProduct}=="45a2", MODE="0666"
 EOF
 sudo udevadm control --reload-rules
-sudo udevadm trigger<img width="1074" height="818" alt="image" src="https://github.com/user-attachments/assets/29caacb0-61d5-42a9-a947-1c103ba9af58" />
+sudo udevadm trigger
 ```
 
 
+
+## Test code and usage
+
+Activate venv environment:
+
+```
+source venv/bin/activate
+```
+
+Run:
+
+```
+python p3_viewer.py --model p1
+```
+
+Commands:
+
+https://github.com/jvdillon/p3-ir-camera
 
 
 
@@ -291,6 +313,10 @@ Verify the camera:
     rpicam-hello --list-cameras
 
 
+Install picamera2
 
+python3 -m venv --system-site-packages ~/venv
+source /venv/bin/activate
+python3 -c "from picamera2 import Picamera2; print('ok')"
 
 
