@@ -313,10 +313,18 @@ Verify the camera:
     rpicam-hello --list-cameras
 
 
-Install picamera2
+Install picamera2.
 
+picamera2 should be already installed, but is not seen from venv. To let venv see picameras2:
+
+```
 python3 -m venv --system-site-packages ~/venv
-source /venv/bin/activate
-python3 -c "from picamera2 import Picamera2; print('ok')"
+```
 
+Verify picamera2:
+```
+source ~/venv/bin/activate
+python3 -c "from picamera2 import Picamera2; print('ok')"
+```
+It should return `ok`.
 
