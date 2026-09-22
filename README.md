@@ -1,3 +1,5 @@
+## Make SD card with Raspberry Pi OS
+
 Use Raspberry Pi Imager to flash OS on a microSD.
 
 Go with Raspberry Pi OS (64-bit) (the standard Desktop one, not Lite, not Full)
@@ -22,10 +24,11 @@ sudo visudo
 add the following to set the timeout to 120 minutes:
 
     Defaults timestamp_timeout=120
+
 Setting this to -1 will make the password last until you reboot or close the terminal.\
 Save and exit the editor.
 
-To disable password completely:
+To disable password completely:\
 Add the following line (replace your_username with your actual username):
 
     your_username ALL=(ALL) NOPASSWD: ALL
@@ -224,6 +227,41 @@ This configuration should also leave your seewiesen Wi-Fi connection alone, so t
 
 
 
+
+
+# Install code
+
+```
+sudo apt update
+sudo apt install python3-full python3-venv python3-opencv python3-numpy libusb-1.0-0-dev
+git clone [https://github.com/jvdillon/p3-ir-camera](https://github.com/lachioma/ThermalMaster-p1-camera)
+cd ThermalMaster-p1-camera
+pip install -e .
+```
+
+Now create an environment and activate it. If needed, use cd to move to the directory where you want the environment to be created.
+```
+cd ~/p3-ir-camera
+```
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+```
+pip install numpy pyusb opencv-python matplotlib
+```
+
+USB permissions for the camera (needed for the camera to work):
+```
+sudo tee /etc/udev/rules.d/99-p3-ir.rules << EOF
+# P1 camera
+SUBSYSTEM=="usb", ATTR{idVendor}=="3474", ATTR{idProduct}=="45c2", MODE="0666"
+# P3 camera
+SUBSYSTEM=="usb", ATTR{idVendor}=="3474", ATTR{idProduct}=="45a2", MODE="0666"
+EOF
+sudo udevadm control --reload-rules
+sudo udevadm trigger<img width="1074" height="818" alt="image" src="https://github.com/user-attachments/assets/29caacb0-61d5-42a9-a947-1c103ba9af58" />
+```
 
 
 
